@@ -1,4 +1,3 @@
-
 let listaNombres = [];   //Arreglo de nombres ingresados
 
 // Función limpia el nombre ingresado y posiciona el cursor en el input
@@ -54,7 +53,7 @@ function agregarAmigo() {
         
         // Habilita el boton de sorteo cuando al menos 2 amigos han sido ingresados
         if (listaNombres.length > 1) {
-            document.getElementById('sorteo').removeAttribute('disabled');
+            document.querySelector('.button-draw').removeAttribute('disabled');
         }
     }
     limpiarNombre();
@@ -66,5 +65,5 @@ function sortearAmigo() {
     mostrarSorteado(listaNombres[numeroAleatorio]);
     
     //deshabilita boton al realizar sorteo
-    document.getElementById('sorteo').setAttribute('disabled','true')
+    document.querySelector('.button-draw').setAttribute('disabled','true')
 }
