@@ -1,21 +1,14 @@
-let listaNombres = [];   //Arreglo de nombres ingresados
+// Declaración 
 
-// Función limpia el nombre ingresado y posiciona el cursor en el input
-function limpiarNombre() {
-    let input = document.getElementById('amigo');
-    input.value = '';
-    input.focus();
-}
+let listaNombres = [];   // Arreglo de nombres ingresados
+const listaAmigos = document.getElementById('listaAmigos')      // Elemento para mostrar el listado de amigos ingresado
+const resultado = document.getElementById('resultado')          // Elemento para mostrar el resultado del sorteo
+const nuevoAmigo = document.getElementById('amigo')             // Input en donde se ingresan los nombres de los amigos
+const btnSorteo = document.querySelector('.button-draw')        // boton del sorteo
 
-// Función limpia el nombre sorteado en el DOM
-function limpiarAmigoSecreto() {
-    document.getElementById('resultado').innerHTML = '';
-}
-
-// Función limpia el nombre ingresado y posicion el cursor en el input
-function limpiarListado(){
-    document.getElementById('listaAmigos').innerHTML = '';
-    listaNombres = [];
+// Función para limpiar cualquier contenido dentro de un elemento
+function limpiarElemento(elemento) {
+    elemento.innerHTML = '';
 }
 
 // Función para insertar html con forma de lista para los campos ingresados
@@ -24,22 +17,19 @@ function mostarListadoNombres(listaNombres) {
     listaNombres.forEach(element => {
         html += `<li>${element}</li>`
     });
-    document.getElementById('listaAmigos').innerHTML = html;
+    listaAmigos.innerHTML = html;
 }
 
 // Función para insertar html con el amigo sorteado
 function mostrarSorteado(amigoSecreto){
-    limpiarListado();
-    let contenedor = document.getElementById('resultado');
-    contenedor.innerHTML = `Tu amigo secreto es: ${amigoSecreto}`
+    resultado.innerHTML = `Tu amigo secreto es: ${amigoSecreto}`;
 }
 
-// Funcion Agregar el input a una lista para luego mostrarla en el front
+// Función para agregar un nuevo amigo a la lista y actualizar la vista
 function agregarAmigo() {
+    nombreIngresado = nuevoAmigo.value.trim();
 
-    nombreIngresado = document.getElementById('amigo').value;
-
-    // Validar si el campo ingresado no esta vacío o repetido
+    // Validación: comprobar si el nombre es válido y no repetido
     if (!nombreIngresado) {
         alert('Por favor, ingrese un nombre válido');
 
@@ -47,23 +37,43 @@ function agregarAmigo() {
         alert(`${nombreIngresado}, ya esta en tu lista de amigos`);
 
     } else {
-        limpiarAmigoSecreto()
-        listaNombres.push(nombreIngresado);
-        mostarListadoNombres(listaNombres);
-        
-        // Habilita el boton de sorteo cuando al menos 2 amigos han sido ingresados
+        limpiarElemento(resultado);             // Limpiar el resultado anterior
+
+        listaNombres.push(nombreIngresado);     // Agregar el nombre a la lista
+        mostarListadoNombres(listaNombres);     // Mostrar la lista actualizada
+
+        // Habilitar el botón de sorteo si hay al menos dos amigos
         if (listaNombres.length > 1) {
-            document.querySelector('.button-draw').removeAttribute('disabled');
+            btnSorteo.removeAttribute('disabled');
         }
     }
-    limpiarNombre();
+    nuevoAmigo.value = '';
+    nuevoAmigo.focus();
 }
 
-// Funcion para sortear amigo desde la lista ingresada
+// Función para sortear un amigo secreto de la lista
 function sortearAmigo() {
     numeroAleatorio = Math.floor(Math.random() * listaNombres.length);
-    mostrarSorteado(listaNombres[numeroAleatorio]);
     
-    //deshabilita boton al realizar sorteo
-    document.querySelector('.button-draw').setAttribute('disabled','true')
+    // Limpiar la lista de amigos y mostrar el amigo sorteado
+    limpiarElemento(listaAmigos);
+    mostrarSorteado(listaNombres[numeroAleatorio]);
+
+    // Reiniciar la lista de amigos
+    listaNombres.length = 0; 
+
+    // Deshabilitar el botón de sorteo
+    btnSorteo.setAttribute('disabled', 'true');
+
 }
+
+// Evento para agregar un amigo cuando se presiona la tecla Enter
+nuevoAmigo.addEventListener('keydown', (event) => {
+    if (event.key == 'Enter') {
+        agregarAmigo();
+    }});
+    
+// EEvento para inicializar la página y deshabilitar el botón al cargar
+document.addEventListener('DOMContentLoaded', () => {
+    btnSorteo.setAttribute('disabled','true');
+    });
