@@ -73,7 +73,7 @@ nuevoAmigo.addEventListener('keydown', (event) => {
         agregarAmigo();
     }});
     
-// EEvento para inicializar la página y deshabilitar el botón al cargar
+// Evento para inicializar la página y deshabilitar el botón al cargar
 document.addEventListener('DOMContentLoaded', () => {
     btnSorteo.setAttribute('disabled','true');
     });
