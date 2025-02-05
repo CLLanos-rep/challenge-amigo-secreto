@@ -22,6 +22,9 @@ Este proyecto es una aplicación simple para realizar sorteos de **amigo secreto
 
 ## Instalación
 
+### Opción 1: 
+Puedes acceder directamente a la aplicación a través de este [Enlace a github pages](https://cllanos-rep.github.io/challenge-amigo-secreto/)
+### Opción 2:
 Para ejecutar esta aplicación en tu máquina local:
 
 1. **Clona el repositorio**:
